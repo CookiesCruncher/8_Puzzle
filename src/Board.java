@@ -75,34 +75,32 @@ public class Board {
     public void avail_paths() {
         Board tmp;
         z_locator();
-        System.out.print(z.x);
-        System.out.print(z.y);
 
         if(z.y > 0) {
             tmp = new Board(this);
-            table[z.y][z.x] = table[z.y - 1][z.x];
-            table[z.y - 1][z.x] = 0;
+            tmp.table[z.y][z.x] = tmp.table[z.y - 1][z.x];
+            tmp.table[z.y - 1][z.x] = 0;
             paths.put("UP",tmp);
             print();
         }
         if(z.y < 2) {
             tmp = new Board(this);
-            table[z.y][z.x] = table[z.y + 1][z.x];
-            table[z.y + 1][z.x] = 0;
+            tmp.table[z.y][z.x] = tmp.table[z.y + 1][z.x];
+            tmp.table[z.y + 1][z.x] = 0;
             paths.put("DOWN",tmp);
             print();
         }
         if(z.x > 0) {
             tmp = new Board(this);
-            table[z.y][z.x] = table[z.y][z.x - 1];
-            table[z.y][z.x - 1] = 0;
+            tmp.table[z.y][z.x] = tmp.table[z.y][z.x - 1];
+            tmp.table[z.y][z.x - 1] = 0;
             paths.put("LEFT",tmp);
             print();
         }
         if(z.x < 2) {
             tmp = new Board(this);
-            table[z.y][z.x] = table[z.y][z.x + 1];
-            table[z.y][z.x + 1] = 0;
+            tmp.table[z.y][z.x] = tmp.table[z.y][z.x + 1];
+            tmp.table[z.y][z.x + 1] = 0;
             paths.put("RIGHT",tmp);
             print();
         }
