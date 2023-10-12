@@ -11,10 +11,10 @@ public class Main {
         Board sample = new Board();
 
         while(!menu.equals("6")) {
-            sample.table [0][0] = 1;
+            sample.table [0][0] = 0;
             sample.table [0][1] = 2;
             sample.table [0][2] = 3;
-            sample.table [1][0] = 0;
+            sample.table [1][0] = 1;
             sample.table [1][1] = 8;
             sample.table [1][2] = 4;
             sample.table [2][0] = 7;
@@ -37,7 +37,7 @@ public class Main {
                     continue;
 
                 case "2":
-                    new BFS().alg(new Board(sample.table));
+                    Board bfs = new BFS().alg(new Board(puzzle.table));
                     continue;
             }
         }

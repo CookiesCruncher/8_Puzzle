@@ -108,10 +108,7 @@ public class Board {
     }
     public void print() {
         for(int y = 0; y < table.length; y ++) {
-            for(int x = 0; x < table.length; x++) {
-                System.out.print(table[y][x]+" | ");
-            }
-            System.out.println();
+            System.out.println(Arrays.toString(table[y]));
         }
         System.out.println();
     }

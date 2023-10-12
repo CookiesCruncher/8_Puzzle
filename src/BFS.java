@@ -1,34 +1,45 @@
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class BFS {
     Queue <Board> q;
     int node;
+    ArrayList <String> visited;
 
     public BFS(){
         q = new LinkedList<>();
         node = 0;
+        visited = new ArrayList<>();
     }
 
-    public void alg(Board puzzle){
+    public Board alg(Board puzzle){
         puzzle.print();
         if(puzzle.goal_check()){
-            System.out.println("FOUND SOLUTION STOP!!!!!");
+            System.out.println("SOLUTION FOUND!!!!\n");
+            return puzzle;
         }
 
-        while(!puzzle.goal_check() && node < 10) {
+        if(!puzzle.goal_check()) {
             puzzle.avail_paths();
 
             for(String key : puzzle.paths.keySet()) {
                 q.add(puzzle.paths.get(key));
             }
 
-            while(!q.isEmpty()){
+            while(!q.isEmpty()) {
                 node++;
-                alg(q.remove());
+                Board nextPuzzle = q.remove();
+
+                if (!visited.contains(Arrays.deepToString(nextPuzzle.table))) {
+
+                    visited.add(Arrays.deepToString(nextPuzzle.table));
+                    Board result = alg(nextPuzzle);
+
+                    if (result != null) {
+                        return result;
+                    }
+                }
             }
         }
+        return null;
     }
 }
