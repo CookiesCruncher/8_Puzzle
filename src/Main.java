@@ -8,8 +8,19 @@ public class Main {
         Scanner reader = new Scanner(System.in);
         String menu = "";
         Board puzzle = new Board();
+        Board sample = new Board();
 
         while(!menu.equals("6")) {
+            sample.table [0][0] = 1;
+            sample.table [0][1] = 2;
+            sample.table [0][2] = 3;
+            sample.table [1][0] = 0;
+            sample.table [1][1] = 8;
+            sample.table [1][2] = 4;
+            sample.table [2][0] = 7;
+            sample.table [2][1] = 6;
+            sample.table [2][2] = 5;
+
             System.out.print("1. Create Puzzle\n" +
                     "2. Breadth-First Search\n" +
                     "3. Uniform-CostSearch\n" +
@@ -26,7 +37,7 @@ public class Main {
                     continue;
 
                 case "2":
-                    new BFS().alg(new Board(puzzle));
+                    new BFS().alg(new Board(sample.table));
                     continue;
             }
         }

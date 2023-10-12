@@ -12,7 +12,12 @@ public class BFS {
         node = 0;
     }
 
-    public int alg(Board puzzle){
+    public void alg(Board puzzle){
+        puzzle.print();
+        if(puzzle.goal_check()){
+            System.out.println("FOUND SOLUTION STOP!!!!!");
+        }
+
         while(!puzzle.goal_check() && node < 10) {
             puzzle.avail_paths();
 
@@ -24,9 +29,6 @@ public class BFS {
                 node++;
                 alg(q.remove());
             }
-
         }
-        puzzle.print();
-        return node;
     }
 }

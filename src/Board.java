@@ -7,6 +7,24 @@ public class Board {
     public Index z;
     public Map<String,Board> paths;
     public Board() {
+        create_goal();
+        z = null;
+        paths = new HashMap<>();
+    }
+
+    public Board(int[][] table) {
+        create_goal();
+        z = null;
+        paths = new HashMap<>();
+        paths = new HashMap<>();
+        for(int y = 0; y< 3; y++) {
+            for ( int x= 0; x < 3; x++) {
+                this.table[y][x] = table[y][x];
+            }
+        }
+    }
+
+    public void create_goal(){
         goal = new int[3][3];
         table = new int[3][3];
         goal [0][0] = 1;
@@ -18,20 +36,6 @@ public class Board {
         goal [2][0] = 7;
         goal [2][1] = 6;
         goal [2][2] = 5;
-        z = null;
-        paths = new HashMap<>();
-    }
-
-    public Board(Board copy) {
-        this.goal = copy.goal;
-        this.table = new int[3][3];
-        for(int y = 0; y< 3; y++) {
-            for ( int x= 0; x < 3; x++) {
-                this.table[y][x] = copy.table[y][x];
-            }
-        }
-        z_locator();
-        paths = new HashMap<>();
     }
 
     public void random() {
@@ -77,32 +81,28 @@ public class Board {
         z_locator();
 
         if(z.y > 0) {
-            tmp = new Board(this);
+            tmp = new Board(table);
             tmp.table[z.y][z.x] = tmp.table[z.y - 1][z.x];
             tmp.table[z.y - 1][z.x] = 0;
             paths.put("UP",tmp);
-            print();
         }
         if(z.y < 2) {
-            tmp = new Board(this);
+            tmp = new Board(table);
             tmp.table[z.y][z.x] = tmp.table[z.y + 1][z.x];
             tmp.table[z.y + 1][z.x] = 0;
             paths.put("DOWN",tmp);
-            print();
         }
         if(z.x > 0) {
-            tmp = new Board(this);
+            tmp = new Board(table);
             tmp.table[z.y][z.x] = tmp.table[z.y][z.x - 1];
             tmp.table[z.y][z.x - 1] = 0;
             paths.put("LEFT",tmp);
-            print();
         }
         if(z.x < 2) {
-            tmp = new Board(this);
+            tmp = new Board(table);
             tmp.table[z.y][z.x] = tmp.table[z.y][z.x + 1];
             tmp.table[z.y][z.x + 1] = 0;
             paths.put("RIGHT",tmp);
-            print();
         }
 
     }
