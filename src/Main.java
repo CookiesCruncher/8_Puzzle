@@ -1,6 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
+
 public class Main {
 
     public static void main(String[] args) {
@@ -8,18 +9,11 @@ public class Main {
         Scanner reader = new Scanner(System.in);
         String menu = "";
         Board puzzle = new Board();
-        Board sample = new Board();
+        puzzle.setGoal();
+        long start, end;
+
 
         while(!menu.equals("6")) {
-            sample.table [0][0] = 0;
-            sample.table [0][1] = 2;
-            sample.table [0][2] = 3;
-            sample.table [1][0] = 1;
-            sample.table [1][1] = 8;
-            sample.table [1][2] = 4;
-            sample.table [2][0] = 7;
-            sample.table [2][1] = 6;
-            sample.table [2][2] = 5;
 
             System.out.print("1. Create Puzzle\n" +
                     "2. Breadth-First Search\n" +
@@ -33,24 +27,63 @@ public class Main {
             switch (menu){
 
                 case "1":
-                    puzzle.random();
-                    continue;
-
+                        int [] p_val = new Random()
+                                .ints(0, 9)
+                                .distinct().limit(9)
+                                .toArray();
+                        int i = 0;
+                        int[][] b = new int[3][3];
+                        for (int column = 0; column < 3; column++) {
+                            for (int row = 0; row < 3; row++) {
+                                b[column][row] = p_val[i];
+                                i++;
+                            }
+                        }
+                        puzzle = new Board(b);
+                    puzzle.print();
+                    break;
                 case "2":
-                    Board bfs = new BFS().alg(new Board(puzzle.table));
-                    continue;
-            }
-        }
+                    start = System.nanoTime();
+                    BFS bfs = new BFS();
+                    Board a = bfs.alg(puzzle);
+                    if (a!= null) {
+                        a.print();
+                        end = System.nanoTime() - start;
+                        System.out.println("Nano Time: " + end);
+                    }
+                    break;
+                case "3":
+                    start = System.nanoTime();
+                    UCS ucs = new UCS();
+                    Board j = ucs.alg(puzzle);
+                    if(j !=null) {
+                        j.print();
+                        end = System.nanoTime() - start;
+                        System.out.println("Nano Time: " + end);
+                    }
+                    break;
+                case "4":
+                    start = System.nanoTime();
+                    BestFS best = new BestFS();
+                    Board k = best.alg(puzzle);
+                    if(k != null) {
+                        k.print();
+                        end = System.nanoTime() - start;
+                        System.out.println("Nano Time: " + end);
+                    }
+                    break;
+                case "5":
+                    start = System.nanoTime();
+                    Astar star = new Astar();
+                    Board d = star.alg(puzzle);
+                    if(d != null) {
+                        d.print();
+                        end = System.nanoTime() - start;
+                        System.out.println("Nano Time: " + end);
+                    }
+                    break;
 
-        reader.close();
-    }
-
-    public static void print(int[][] table){
-        for(int column = 0; column < 3; column++){
-            for(int row = 0; row < 3; row++) {
-                System.out.print(table[column][row]);
             }
-            System.out.println();
         }
     }
 }

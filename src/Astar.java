@@ -1,11 +1,14 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Set;
 
-public class BFS {
-    private Queue<Board> avail_paths;
+public class Astar {
+    private PriorityQueue<Board> avail_paths;
     private static Set<String> visited;
     int node;
-    public BFS(){
-        avail_paths = new LinkedList<>();
+    public Astar(){
+        avail_paths = new PriorityQueue<>(new AstarComparator());
         node = 0;
         visited = new HashSet<>();
     }
@@ -16,13 +19,12 @@ public class BFS {
         while(!avail_paths.isEmpty()) {
             node++;
             Board nextPuzzle = avail_paths.remove();
-            nextPuzzle.setMisplace();
 
-            if (!nextPuzzle.check_goal_m()) {
+            if (nextPuzzle.nilsson != 0) {
                 setAvail_paths(nextPuzzle);
             }
             else {
-                System.out.println("Breadth First Search:\nNode visited: "+node);
+                System.out.println("A*:\nNode visited: "+node);
                 return nextPuzzle;
             }
         }
